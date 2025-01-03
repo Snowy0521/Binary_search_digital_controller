@@ -1,0 +1,52 @@
+/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_TB.v {1 {vlog -work work -vopt -stats=none /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_TB.v
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+-- Compiling module FIR_Filter_TB
+
+Top level modules:
+	FIR_Filter_TB
+
+} {} {}} /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model.v {1 {vlog -work work -vopt -stats=none /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model.v
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+-- Compiling module Fingerclip_Model
+
+Top level modules:
+	Fingerclip_Model
+
+} {} {}} /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model_TB.v {1 {vlog -work work -vopt -stats=none /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model_TB.v
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+-- Compiling module Fingerclip_Model_TB
+
+Top level modules:
+	Fingerclip_Model_TB
+
+} {} {}} /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/controller_TB.v {1 {vlog -work work -vopt -stats=none /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/controller_TB.v
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+-- Compiling module Controller_TB
+
+Top level modules:
+	Controller_TB
+
+} {} {}} /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values.v {1 {vlog -work work -vopt -stats=none /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values.v
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+-- Compiling module Initial_Values
+
+Top level modules:
+	Initial_Values
+
+} {} {}} /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values_TB.v {1 {vlog -work work -vopt -stats=none /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values_TB.v
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+-- Compiling module Initial_Values_TB
+
+Top level modules:
+	Initial_Values_TB
+
+} {} {}} /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController.v {2 {vlog -work work -vopt -stats=none /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController.v
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+-- Compiling module myController
+** Warning: /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController.v(100): (vlog-2182) 'min_voltage' might be read before written in always_comb or always @* block.
+** Warning: /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController.v(103): (vlog-2182) 'max_voltage' might be read before written in always_comb or always @* block.
+
+Top level modules:
+	myController
+
+} {} {}}

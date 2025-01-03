@@ -1,0 +1,195 @@
+/**
+V2
+This module is FIR Filter, that can remove high frequency noise in system
+**/
+module FIR_Filter(
+    input wire CLK_Filter,          // Clock for the filter
+    input wire [7:0] input_data,    // Input data from ADC (0 to 255)
+    input wire rst_n,               // Reset signal (active-low)
+    output reg [19:0] output_data   // Filtered output (20-bit)
+);
+
+parameter NUM_SHI_REGS = 22;		
+reg [7:0] shift_regs [NUM_SHI_REGS-1:0];  // 22 shift registers as buffer 
+reg [4:0] i;  				  // i has range from 0 to 31
+
+// store input data in the buffer 
+always @(posedge CLK_Filter or negedge rst_n) begin
+    if (!rst_n) begin
+	/*
+        for (i = 0; i < NUM_SHI_REGS; i = i + 1) begin
+            shift_regs[i] <= 8'b0;
+        end
+	*/
+	shift_regs[0]  <= 8'b0;
+	shift_regs[1]  <= 8'b0;
+	shift_regs[2]  <= 8'b0;
+	shift_regs[3]  <= 8'b0;
+	shift_regs[4]  <= 8'b0;
+	shift_regs[5]  <= 8'b0;
+	shift_regs[6]  <= 8'b0;
+	shift_regs[7]  <= 8'b0;
+	shift_regs[8]  <= 8'b0;
+	shift_regs[9]  <= 8'b0;
+	shift_regs[10] <= 8'b0;
+	shift_regs[11] <= 8'b0;
+	shift_regs[12] <= 8'b0;
+	shift_regs[13] <= 8'b0;
+	shift_regs[14] <= 8'b0;
+	shift_regs[15] <= 8'b0;
+	shift_regs[16] <= 8'b0;
+	shift_regs[17] <= 8'b0;
+	shift_regs[18] <= 8'b0;
+	shift_regs[19] <= 8'b0;
+	shift_regs[20] <= 8'b0;
+	shift_regs[21] <= 8'b0;
+	
+    end else begin
+        shift_regs[0]  <= input_data;
+	shift_regs[1]  <= shift_regs[0];
+	shift_regs[2]  <= shift_regs[1];
+	shift_regs[3]  <= shift_regs[2];
+	shift_regs[4]  <= shift_regs[3];
+	shift_regs[5]  <= shift_regs[4];
+	shift_regs[6]  <= shift_regs[5];
+	shift_regs[7]  <= shift_regs[6];
+	shift_regs[8]  <= shift_regs[7];
+	shift_regs[9]  <= shift_regs[8];
+	shift_regs[10] <= shift_regs[9];
+	shift_regs[11] <= shift_regs[10];
+	shift_regs[12] <= shift_regs[11];
+	shift_regs[13] <= shift_regs[12];
+	shift_regs[14] <= shift_regs[13];
+	shift_regs[15] <= shift_regs[14];
+	shift_regs[16] <= shift_regs[15];
+	shift_regs[17] <= shift_regs[16];
+	shift_regs[18] <= shift_regs[17];
+	shift_regs[19] <= shift_regs[18];
+	shift_regs[20] <= shift_regs[19];
+	shift_regs[21] <= shift_regs[20];
+/*        for (i = 0; i < NUM_SHI_REGS -1; i = i + 1)
+           shift_regs[i+1] <= shift_regs[i]; // cyclic shift operation
+*/
+    end
+	$display("shift_regs[0]: %d", shift_regs[0]);
+end
+
+//Only 11 multipliers needed because of the symmetry of FIR filter coefficients
+parameter NUM_ADD_REGS = 11;
+reg [8:0] add_regs [NUM_ADD_REGS-1:0];
+always @(posedge CLK_Filter or negedge rst_n) begin
+    if (!rst_n) begin
+	/*
+        for (i = 0; i < NUM_ADD_REGS; i=i+1) begin
+            add_regs[i] <= 9'b0;
+        end
+*/
+	add_regs[0] <= 9'b0;
+	add_regs[1] <= 9'b0;
+	add_regs[2] <= 9'b0;
+	add_regs[3] <= 9'b0;
+	add_regs[4] <= 9'b0;
+	add_regs[5] <= 9'b0;
+	add_regs[6] <= 9'b0;
+	add_regs[7] <= 9'b0;
+	add_regs[8] <= 9'b0;
+	add_regs[9] <= 9'b0;
+	add_regs[10] <= 9'b0;
+    end else begin
+/*
+        for (i = 0; i < NUM_ADD_REGS; i = i+1)
+            add_regs[i] <= shift_regs[i] + shift_regs[NUM_SHI_REGS-1-i]; // 22 shift register data are summed first and last
+*/	add_regs[0] <= shift_regs[0] + shift_regs[21];
+	add_regs[1] <= shift_regs[1] + shift_regs[20];
+	add_regs[2] <= shift_regs[2] + shift_regs[19];
+	add_regs[3] <= shift_regs[3] + shift_regs[18];
+	add_regs[4] <= shift_regs[4] + shift_regs[17];
+	add_regs[5] <= shift_regs[5] + shift_regs[16];
+	add_regs[6] <= shift_regs[6] + shift_regs[15];
+	add_regs[7] <= shift_regs[7] + shift_regs[14];
+	add_regs[8] <= shift_regs[8] + shift_regs[13];
+	add_regs[9] <= shift_regs[9] + shift_regs[12];
+	add_regs[10] <= shift_regs[10] + shift_regs[11];
+    end
+	$display("add_regs[0]: %d", add_regs[0]);
+end
+
+// 11 FIR filter coefficients
+wire [7:0] COEFFICIENTS [NUM_ADD_REGS-1:0];
+assign COEFFICIENTS[0] =    8'd2;
+assign COEFFICIENTS[1] =    8'd10;
+assign COEFFICIENTS[2] =    8'd16;
+assign COEFFICIENTS[3] =    8'd28;
+assign COEFFICIENTS[4] =    8'd43;
+assign COEFFICIENTS[5] =    8'd60;
+assign COEFFICIENTS[6] =    8'd78;
+assign COEFFICIENTS[7] =    8'd95;
+assign COEFFICIENTS[8] =    8'd111;
+assign COEFFICIENTS[9] =    8'd122;
+assign COEFFICIENTS[10] =   8'd128;
+
+// Each order multiplies with the according coefficient
+reg [16:0] order[NUM_ADD_REGS-1:0];
+always @(posedge CLK_Filter or negedge rst_n) begin
+    if (!rst_n) begin
+       /*
+	for (i=0 ; i<NUM_ADD_REGS; i=i+1) begin
+            order[i] <= 17'b0;
+        end
+	*/
+	order[0] <= 17'b0;
+	order[1] <= 17'b0;
+	order[2] <= 17'b0;
+	order[3] <= 17'b0;
+	order[4] <= 17'b0;
+	order[5] <= 17'b0;
+	order[6] <= 17'b0;
+	order[7] <= 17'b0;
+	order[8] <= 17'b0;
+	order[9] <= 17'b0;
+	order[10] <= 17'b0;
+	
+    end
+    else begin
+	order[0] <= COEFFICIENTS[i] * add_regs[i];
+	order[1] <= COEFFICIENTS[i] * add_regs[i];
+	order[2] <= COEFFICIENTS[i] * add_regs[i];
+	order[3] <= COEFFICIENTS[i] * add_regs[i];
+	order[4] <= COEFFICIENTS[i] * add_regs[i];
+	order[5] <= COEFFICIENTS[i] * add_regs[i];
+	order[6] <= COEFFICIENTS[i] * add_regs[i];
+	order[7] <= COEFFICIENTS[i] * add_regs[i];
+	order[8] <= COEFFICIENTS[i] * add_regs[i];
+	order[9] <= COEFFICIENTS[i] * add_regs[i];
+	order[10] <= COEFFICIENTS[i] * add_regs[i];
+/*
+        for (i=0 ; i<NUM_ADD_REGS; i=i+1) begin
+            order[i] <= COEFFICIENTS[i] * add_regs[i] ;
+        end
+*/
+    end
+	$display("order[0]: %d", order[0]);
+end
+
+// Addition operations are pipelined in multiple cycles to optimise timing
+// reg [19:0] sum1;
+// reg [19:0] sum2;
+// reg [19:0] sum3;
+always @(posedge CLK_Filter or negedge rst_n) begin
+    if (!rst_n) begin
+        //sum1        <= 20'd0;
+        //sum2        <= 20'd0;
+        //sum3        <= 20'd0;
+        output_data <= 20'd0;
+    end
+    else begin
+        //sum1 <= order[0] + order[1] + order[2] + order[3];
+        //sum2 <= order[4] + order[5] + order[6] + order[7];
+        //sum3 <= order[8] + order[9] + order[10];
+        //output_data <= sum1 + sum2 + sum3;
+	output_data <= order[0] + order[1] + order[2] + order[3] + order[4] + order[5] + order[6] + order[7] + order[8] + order[9] + order[10];
+    end
+    $display("output_data: %d", output_data);
+end
+
+endmodule

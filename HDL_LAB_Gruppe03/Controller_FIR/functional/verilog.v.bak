@@ -1,0 +1,35 @@
+module Controller_FIR (
+input[7:0] VPPG,
+input Find_Setting,
+input CLK,
+input rst_n,
+output[6:0] DC_Comp,
+output[3:0] PGA_Gain,
+output LED_IR,
+output LED_RED,
+output [19:0] Out_RED_Filtered,
+output [19:0] Out_IR_Filtered,
+output [3:0] LED_Drive
+);
+
+
+	wire [7:0] IR_ADC_Value, RED_ADC_Value;
+
+	/*reg  clk;*/
+	wire CLK_Filter;
+	Controller ct(.Vppg(VPPG), .Find_Setting(Find_Setting), .CLK(CLK), .rst_n(rst_n), .DC_Comp(DC_Comp), .PGA_Gain(PGA_Gain), .CLK_Filter(CLK_Filter), .LED_IR(LED_IR), .LED_RED(LED_RED),.IR_ADC_Value(IR_ADC_Value), .RED_ADC_Value(RED_ADC_Value), .LED_Drive(LED_Drive)); 
+	FIR_Filter filter_red(.CLK_Filter(CLK_Filter), .input_data(RED_ADC_Value),.rst_n(rst_n),  .output_data(Out_RED_Filtered));
+	FIR_Filter filter_ir(.CLK_Filter(CLK_Filter), .input_data(IR_ADC_Value),.rst_n(rst_n),  .output_data(Out_IR_Filtered));
+
+
+
+   
+	/*always@(posedge clk) 
+	begin
+		
+		
+
+	end*/
+
+
+endmodule

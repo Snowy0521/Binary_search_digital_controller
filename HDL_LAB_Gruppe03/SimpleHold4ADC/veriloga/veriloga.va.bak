@@ -1,0 +1,32 @@
+// VerilogA for HDL_LAB_Gruppe03, SimpleHold4ADC, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module SimpleHold4ADC(AGND, clk, vIn, vOut);
+
+inout AGND;
+electrical AGND;
+inout clk;
+electrical clk;
+inout vIn;
+electrical vIn;
+inout vOut;
+electrical vOut;
+
+parameter real clkThreshold = 0.9 from [0:inf];
+real vOutTemp;
+
+analog begin
+
+@(cross(V(clk,AGND) - clkThreshold,1))
+	begin
+		vOutTemp = V(vIn,AGND);
+	end
+//$display(V(vOut,AGND));
+V(vOut,AGND) <+ vOutTemp;
+
+end
+
+endmodule
+

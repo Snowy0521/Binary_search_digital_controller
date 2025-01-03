@@ -1,0 +1,53 @@
+`timescale 1ms/1us
+module Controller_TB ();
+	wire [0:6] DC_Comp ;
+	wire[0:6]  DC_Comp1 ;
+	wire [0:3] PGA_Gain; 
+	wire[0:3] PGA_Gain1;
+	wire [0:3] LED_Drive,LED_Drive1;
+	wire [0:7] Vppg ,Vppg1 ;
+	wire [19:0] Out_IR,Out_RED;
+	reg  Find_Setting, rst_n,CLK;
+	/*reg  clk;*/
+	wire LED_RED , LED_IR ;
+	wire LED_RED1, LED_IR1;
+	Fingerclip_Model fc(.Vppg(Vppg), .DC_Comp(DC_Comp), .PGA_Gain(PGA_Gain), .LED_RED(LED_RED), .LED_IR(LED_IR));
+	Controller ct(.Vppg(Vppg1), .Find_Setting(Find_Setting), .CLK(CLK), .rst_n(rst_n), .DC_Comp(DC_Comp1), .PGA_Gain(PGA_Gain1), .LED_IR(LED_IR1), .LED_RED(LED_RED1), .Out_IR(Out_IR), .Out_RED(Out_RED), .LED_Drive(LED_Drive1)); 
+
+
+	initial begin
+	/*	DC_Comp = 0;
+		PGA_Gain = 0;*/
+		//clk = 0;
+        	CLK=0;
+		Find_Setting =1;
+	/*	LED_RED = 0;
+		LED_IR = 1;
+		#2 LED_RED = 1;
+		#2 LED_RED = 0;*/
+		#10000000 $stop;
+	end
+
+	//always #500 clk = !clk;
+	always #0.5 CLK = !CLK;
+
+	/*always 
+		begin
+		   LED_RED = !LED_RED;
+		#5 LED_IR = !LED_IR;
+	end*/
+
+    assign Vppg1 = Vppg;
+    assign DC_Comp = DC_Comp1;
+    assign PGA_Gain = PGA_Gain1;
+    assign LED_RED = LED_RED1;
+    assign LED_IR = LED_IR1;
+	/*always@(posedge clk) 
+	begin
+		
+		
+
+	end*/
+
+
+endmodule

@@ -1,0 +1,36 @@
+// VerilogA for HDL_LAB_Gruppe03, SimpleHold4ADC, veriloga
+
+/**
+This module is a sample and hold block for ADC
+**/
+`include "constants.vams"
+`include "disciplines.vams"
+
+module SimpleHold4ADC(AGND, clk, vIn, vOut);
+
+    // four inout ports: AGND, clk, vIn, and vOut.
+    inout AGND;
+    electrical AGND; // declared as electrical, indicating electrical nature.
+    inout clk;
+    electrical clk;
+    inout vIn;
+    electrical vIn;
+    inout vOut;
+    electrical vOut;
+
+    // the clock threshold voltage is 0.9 V
+    parameter real clkThreshold = 0.9 from [0:inf];
+    real vOutTemp;
+
+    analog begin
+        // waits for a rising edge of the clock (clk) that crosses the clock threshold voltage
+        @(cross(V(clk,AGND) - clkThreshold,1))begin
+            vOutTemp = V(vIn,AGND); // rising edge is detected, the input voltage vIn stored in vOutTemp.
+        end
+
+        V(vOut,AGND) <+ vOutTemp; // vOutTemp is assigned to the output voltage vOut 
+
+    end
+
+endmodule
+

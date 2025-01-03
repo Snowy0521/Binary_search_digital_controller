@@ -1,0 +1,259 @@
+module Controller(Vppg, Find_Setting, CLK, rst_n, DC_Comp, PGA_Gain, CLK_Filter, LED_IR, LED_RED, IR_ADC_Value, RED_ADC_Value, LED_Drive);
+
+input 		CLK;
+input 		rst_n;
+input 		Find_Setting;
+input[7:0] 	Vppg;
+
+output reg 			LED_IR;
+output reg 			LED_RED;
+output reg			CLK_Filter;
+output reg  [3:0] 	LED_Drive;
+output reg  [3:0] 	PGA_Gain;
+output reg  [6:0] 	DC_Comp;
+output reg  [7:0]   IR_ADC_Value;
+output reg  [7:0]   RED_ADC_Value;
+
+parameter 		 MAX_RAND_VOLTAGE = 250;
+parameter 		 MIN_RAND_VOLTAGE = 5;
+parameter		 MITTEL_VOLTAGE   = 127;
+
+localparam[2:0]  INITIAL 			    = 3'b001; //1
+localparam[2:0]  IDLE         		    = 3'b010; //2
+localparam[2:0]  SWEEP_DC_COMP  		= 3'b011; //3
+localparam[2:0]  INCREASE_PGA_GAIN      = 3'b100; //4
+localparam[2:0]  OSCILLATE   	     	= 3'b101; //5
+localparam[2:0]  FIRST_DC_COMP   		= 3'b110; //6
+
+
+reg [16:0] 	sum_voltage;
+reg [9:0]  	counter;
+reg [3:0] 	gaintemp;
+reg [3:0] 	PGA_Gain_IR;
+reg [3:0] 	PGA_Gain_RED;
+reg [2:0]   currentState, nextState;
+reg [7:0]   DC_left, DC_right, DC_Comp_temp;
+reg [6:0]   DC_Comp_IR;
+reg [6:0]   DC_Comp_RED; 
+reg [1:0]	red_on_flag; // scan min max index 
+reg [9:0]   min_index;
+reg [9:0]   max_index;
+reg [7:0]  	temp_min;
+reg [7:0]  	temp_max;
+reg [9:0]   index_counter;
+reg	[9:0]   i;
+
+
+
+
+always@(posedge CLK, posedge Find_Setting or negedge rst_n)begin
+	if(~rst_n || Find_Setting)begin
+		currentState  <= INITIAL;
+		CLK_Filter		  <= 1;
+	end
+    else begin 
+		currentState  <= nextState;
+		CLK_Filter    <= ~CLK_Filter;
+	end
+end
+
+
+always@(negedge CLK) begin
+	case(currentState)
+		INITIAL: begin
+			nextState 	      <= IDLE;
+			sum_voltage       <= 0;
+			counter		      <= 0;
+			PGA_Gain_RED 	  <= 0;
+			PGA_Gain_IR		  <= 0;
+			DC_Comp_temp	  <= 0;
+			DC_Comp_IR 	      <= 0;
+			DC_Comp_RED       <= 0; 
+			red_on_flag       <= 1; // scan min max index 
+			temp_min		  <= 255;
+			temp_max          <= 0;
+			min_index		<= 0;
+			max_index 		<= 0;
+			index_counter     <= 0;
+			LED_IR			  <= 0;
+			LED_RED			  <= 1;
+			PGA_Gain		  <= 0;
+			gaintemp  		<= 15;
+			LED_Drive 		<= 8;
+
+			
+		end
+
+		IDLE: begin 
+			// reset 
+			DC_left	  <= 0;
+			DC_right  <= MITTEL_VOLTAGE; 
+            case(red_on_flag)
+                0: begin 
+					nextState <= FIRST_DC_COMP;
+		   		    LED_IR    <= 1;
+		            LED_RED   <= 0;
+                    DC_Comp   <= 0;
+					temp_min		  <= 255;
+			temp_max          <= 0;
+				end
+				1: begin
+					nextState <= FIRST_DC_COMP;
+		   			LED_IR    <= 0;
+		   		    LED_RED   <= 1;
+                    DC_Comp   <= 0; 	
+				temp_min		  <= 255;
+			temp_max          <= 0;
+				end 
+				2: begin
+				     
+					if (Vppg < temp_min) begin
+		 				temp_min  <= Vppg;
+		 				min_index <= index_counter;
+		 				nextState <= IDLE;
+					end
+					if (Vppg > temp_max) begin
+		 				temp_max  <= Vppg;
+		 				max_index <= index_counter;
+						nextState <= IDLE;
+					end
+
+					index_counter <= index_counter + 1;
+					if (index_counter == 999)begin
+						index_counter <= 0;
+						nextState     <= SWEEP_DC_COMP; // set led red on 
+					end
+				    
+				end
+			   
+                default:;
+            endcase
+		end 
+
+
+		FIRST_DC_COMP:begin
+			if ((DC_right - DC_left) > 1)begin 
+				if(Vppg < MITTEL_VOLTAGE)begin
+					DC_right 	    <= 	DC_Comp;
+					DC_Comp_temp	<=  DC_Comp + DC_left;
+					DC_Comp  		<=  DC_Comp_temp >>1;
+				end else if(Vppg > MITTEL_VOLTAGE)begin
+					DC_left 	    <=	DC_Comp;
+					DC_Comp_temp 	<=  DC_Comp + DC_right;
+					DC_Comp 	    <=  DC_Comp_temp >> 1;
+				end else begin
+					DC_left		<=	DC_Comp;
+					DC_right	<=	DC_Comp;
+				end	
+			end else begin
+				red_on_flag     <=	 2;
+				nextState		<= 	IDLE;					
+			end
+	    end
+
+		SWEEP_DC_COMP: begin
+				counter <= counter + 1;
+				if (counter < (((min_index +max_index) >> 1) + 10) && counter >= (((min_index + max_index) >> 1) - 10))begin 
+			
+					if(Vppg < MITTEL_VOLTAGE)begin
+						DC_right 	    <= 	DC_Comp;
+						DC_Comp_temp	<=  DC_Comp + DC_left;
+						DC_Comp  		<=  DC_Comp_temp >>1;
+ 						
+					end else if(Vppg > MITTEL_VOLTAGE)begin
+						DC_left 	    <=	DC_Comp;
+						DC_Comp_temp    <=  DC_Comp + DC_right;
+						DC_Comp 	    <=  DC_Comp_temp >> 1;
+						
+					end else begin
+						DC_left		<=	DC_Comp;
+						DC_right	<=	DC_Comp;
+					end	
+				end else if (counter >= (((min_index +max_index) >> 1) + 10)) begin 
+					counter  		<= 0;
+					nextState	    <= INCREASE_PGA_GAIN;
+				end         
+		end
+	
+
+		INCREASE_PGA_GAIN: begin
+			if (counter == 999) begin
+				// reserve red_on for next LED RED
+				red_on_flag 	   <= 0 ;
+				counter    	   <= 0; //reset
+
+				if(LED_IR) begin
+					DC_Comp_IR   <= DC_Comp;		     // store actual dc comp value in this register 
+					PGA_Gain_IR  <= gaintemp  - 1; 		// store actual pga gain value in this register 
+					nextState  <= OSCILLATE;
+					PGA_Gain   <= 0; //reset
+					gaintemp  <= 15;
+				end
+
+				if(LED_RED) begin
+					DC_Comp_RED  <= DC_Comp;
+					//$display("PGA_Gain RED %d", PGA_Gain_RED);
+					PGA_Gain_RED  <= gaintemp  - 1;
+					
+					nextState  <= IDLE; //Man muss mit LED_IR = 0 UND LED_RED = 1 anfangen!
+					PGA_Gain   <= 0; //reset
+					gaintemp  <= 15;
+					// switch LED 
+					LED_RED	  <= 0;
+					LED_IR	  <= 1;
+				end
+				
+			end 
+				
+			for (i =0; i <= 999;i=i+1 )begin	
+				   PGA_Gain <= PGA_Gain + 4'd1;
+				   counter <= counter + 1;
+				  if((Vppg >= MAX_RAND_VOLTAGE) || (Vppg <= MIN_RAND_VOLTAGE))begin
+					PGA_Gain     <= 0;
+					if ( PGA_Gain < gaintemp)begin
+						gaintemp	<=	PGA_Gain ;
+					end
+					end
+				  if(PGA_Gain == 15)begin
+					PGA_Gain     <= 0;				
+					end
+			end
+
+				
+				
+			
+		end
+
+		OSCILLATE: begin
+			if(counter == 9) begin
+				LED_RED <= ~LED_RED; 
+				LED_IR  <= ~LED_IR;
+				counter <= 0; //reset
+				// set dc and pga parameter for next LED RED
+				if(LED_IR) begin
+					DC_Comp <= DC_Comp_RED;
+				//	$display("DC_Comp IR %d", DC_Comp);
+					PGA_Gain <= PGA_Gain_RED;
+				//	$display("PGA_Gain RED %d", PGA_Gain_RED);
+		
+					IR_ADC_Value <= Vppg; //output
+				end
+
+				// set dc and pga parameter for next LED IR
+				if(LED_RED) begin
+					DC_Comp  <= DC_Comp_IR;
+					PGA_Gain <= PGA_Gain_IR;
+					//$display("DC_Comp RED %d", DC_Comp);
+				//	$display("PGA_Gain IR %d", PGA_Gain_IR);
+					RED_ADC_Value <= Vppg; //output
+				end
+
+			end	else begin
+				counter <= counter + 1;
+			end
+		end
+		default: nextState <= IDLE;
+	endcase
+end
+
+endmodule

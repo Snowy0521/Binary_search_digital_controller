@@ -1,0 +1,55 @@
+// VerilogA for HDL_LAB_Gruppe03, Quantizer4ADC, veriloga
+
+/**
+This module is quantizer for analog-to-digital converter (ADC)
+**/
+`include "constants.vams"
+`include "disciplines.vams"
+
+module Quantizer4ADC(AGND, D, vIn);
+
+    // three inout ports: AGND, D, and vIn.
+    inout AGND;
+    electrical AGND; //declared as electrical, indicating electrical nature
+    inout[7:0] D;
+    electrical[7:0] D;
+    inout vIn;
+    electrical vIn;
+
+    // end of automatically generated header
+    // the logic levels are 0 to 1.8. V
+    parameter real vLow = 0 from [0:inf];
+    parameter real vHigh = 1.8 from [0:inf];
+
+    // the reference voltage is 1.8. V
+    parameter real vRefL = 0 from [0:inf];
+    parameter real vRefH = 1.8 from [0:inf];
+
+    // the number of quantization levels
+    localparam integer levels = 256;
+
+    integer result;
+
+analog begin
+	// the output value is calculated arithmetically
+	result = levels*(V(vIn,AGND) - vRefL)/(vRefH - vRefL)-0.5;
+    
+	// overflow and underflow are caught here
+	if (result > levels-1)
+	    result = levels-1;
+	else if (result < 0)
+	    result = 0;
+
+	// the integer result is converted into bits
+	V(D[0]) <+ (result & 1)   ? vHigh : vLow;
+	V(D[1]) <+ (result & 2)   ? vHigh : vLow;
+	V(D[2]) <+ (result & 4)   ? vHigh : vLow;
+	V(D[3]) <+ (result & 8)   ? vHigh : vLow;
+	V(D[4]) <+ (result & 16)  ? vHigh : vLow;
+	V(D[5]) <+ (result & 32)  ? vHigh : vLow;
+	V(D[6]) <+ (result & 64)  ? vHigh : vLow;
+	V(D[7]) <+ (result & 128) ? vHigh : vLow;
+end
+
+// end of module
+endmodule

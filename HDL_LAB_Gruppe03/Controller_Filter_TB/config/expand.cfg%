@@ -1,0 +1,20 @@
+//Revision 6
+//NOTE
+// Default config view template for AMS netlister(s) in ADE.
+// Note:
+//      Please remember to replace Top Cell Library, Cell, and View
+//      fields with the actual names used by your design.
+//END_NOTE
+
+config Controller_Filter_TB;
+design HDL_LAB_Gruppe03.Controller_Filter_TB:schematic;
+liblist UM065GIOLL25MVIR, UMK65LSCLLMVBBH, UMK65LSCLLMVBBL, UMK65LSCLLMVBBR, umc65ll, HDL_LAB_Gruppe03;
+
+viewlist spectre, spice, pspice, verilog, verilogams, behavioral, functional, systemVerilog, schematic, veriloga, vhdl, vhdlams, wreal, functional_netlist;
+stoplist spectre;
+
+
+cell Import_Lib_Gruppe03.Controller_FIR binding :functional;
+
+
+endconfig

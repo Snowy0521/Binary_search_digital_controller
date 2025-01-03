@@ -1,0 +1,347 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src
+T_opt
+!s110 1691070883
+VDEj9CDoRcJBhYJ>8_12Jk3
+04 13 4 work Controller_TB fast 0
+=1-000ae431a4f1-64cbb1a2-dc717-2df5
+Z1 o-quiet -auto_acc_if_foreign -work work +acc
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;10.7c;67
+R0
+T_opt1
+!s110 1691749658
+V3Po?WA9o_cD58<YEjAzhA1
+04 13 4 work FIR_Filter_TB fast 0
+=1-000ae431a4f1-64d60d1a-b562d-22e4
+R1
+R2
+n@_opt1
+R3
+R0
+T_opt2
+!s110 1691745573
+V[HP0GlmiE;B:Y=nlGnzJJ2
+04 17 4 work Initial_Values_TB fast 0
+=1-000ae431a4f1-64d5fd24-ec5d3-205e
+R1
+R2
+n@_opt2
+R3
+R0
+vController
+Z4 !s110 1691759360
+!i10b 1
+!s100 B^BSP66dBkm?i?m_T]:CZ1
+Ic]69FHKWGAhMifmN[Z9kA3
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1691575317
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/test.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/test.v
+L0 1
+Z6 OL;L;10.7c;67
+r1
+!s85 0
+31
+Z7 !s108 1691759360.000000
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/test.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/test.v|
+!i113 0
+Z8 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@controller
+vController_FIR
+!s110 1691646108
+!i10b 1
+!s100 ASJ5;5jXTP9DJG_FR0=Xa0
+IW0]Jc_6G`Z2GGGHRV4SeX0
+R5
+R0
+w1691646024
+Z9 8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/top.v
+Z10 F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/top.v
+L0 1
+R6
+r1
+!s85 0
+31
+!s108 1691646108.000000
+Z11 !s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/top.v|
+!s90 -reportprogress|300|-work|work|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/top.v|
+!i113 0
+R8
+R2
+n@controller_@f@i@r
+vController_TB
+Z12 !s110 1691759359
+!i10b 1
+!s100 ]jo8J6WaNZ0C]c@9I;M[O1
+IioLi6W9BG>e[6XAIYBlXg3
+R5
+R0
+w1691311188
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/controller_TB.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/controller_TB.v
+L0 2
+R6
+r1
+!s85 0
+31
+Z13 !s108 1691759359.000000
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/controller_TB.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/controller_TB.v|
+!i113 0
+R8
+R2
+n@controller_@t@b
+vFingerclip_Model
+R12
+!i10b 1
+!s100 BZj=58Y^g[5n`dZAD]2Yd3
+I5`AUR3lzMoKGKbm0<gF^g1
+R5
+R0
+w1690983068
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model.v
+L0 3
+R6
+r1
+!s85 0
+31
+R13
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model.v|
+!i113 0
+R8
+R2
+n@fingerclip_@model
+vFingerclip_Model_TB
+R12
+!i10b 1
+!s100 CiQ:k;FDjB>>@T]=[;T?13
+I;>6AH:XjmTGR27<`l<UX82
+R5
+R0
+w1690789485
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model_TB.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model_TB.v
+L0 2
+R6
+r1
+!s85 0
+31
+R13
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model_TB.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Fingerclip_Model_TB.v|
+!i113 0
+R8
+R2
+n@fingerclip_@model_@t@b
+vFIR_Filter
+R4
+!i10b 1
+!s100 FZF76ho:kW;PLZd_2?::c1
+ITWA@jW_eL6d^me=nWRTjm1
+R5
+R0
+w1691750575
+Z14 8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter.v
+Z15 F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter.v
+L0 5
+R6
+r1
+!s85 0
+31
+R13
+Z16 !s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter.v|
+Z17 !s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter.v|
+!i113 0
+R8
+R2
+n@f@i@r_@filter
+vFIR_Filter_1
+!s110 1691742666
+!i10b 1
+!s100 QmDTV@B7njG0;f?hVDZ[;1
+Ik<F8kZ<NieJEJlMaLCi6;1
+R5
+R0
+w1691742658
+R14
+R15
+L0 4
+R6
+r1
+!s85 0
+31
+!s108 1691742666.000000
+R16
+R17
+!i113 0
+R8
+R2
+n@f@i@r_@filter_1
+vFIR_Filter_TB
+R4
+!i10b 1
+!s100 H5TRC6W4DoQo@cng9WY>_3
+I]eJ5Y>UUnTb4oUTjiC_[j0
+R5
+R0
+w1691749590
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_TB.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_TB.v
+L0 2
+R6
+r1
+!s85 0
+31
+R7
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_TB.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_TB.v|
+!i113 0
+R8
+R2
+n@f@i@r_@filter_@t@b
+vFIR_Filter_version2
+R4
+!i10b 1
+!s100 ZXGJ]e==40nolol64:CXT0
+I]MWW:kR9aOZa]AP7]m[dT1
+R5
+R0
+w1690970692
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_version2.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_version2.v
+L0 2
+R6
+r1
+!s85 0
+31
+R7
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_version2.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/FIR_Filter_version2.v|
+!i113 0
+R8
+R2
+n@f@i@r_@filter_version2
+vInitial_Values
+Z18 !s110 1691749621
+!i10b 1
+!s100 B7oI7oVS8zz^N@G]d`PiW3
+IN0P@9[4a0ZS7d1APh^m0<3
+R5
+R0
+w1690790042
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values.v
+L0 2
+R6
+r1
+!s85 0
+31
+Z19 !s108 1691749621.000000
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values.v|
+!i113 0
+R8
+R2
+n@initial_@values
+vInitial_Values_TB
+R18
+!i10b 1
+!s100 hfkeQPNeRbNC9>gT04DI`0
+I7?5BcHb:dfUPlLadnFZDS3
+R5
+R0
+w1691745755
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values_TB.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values_TB.v
+L0 3
+R6
+r1
+!s85 0
+31
+R19
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values_TB.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/Initial_Values_TB.v|
+!i113 0
+R8
+R2
+n@initial_@values_@t@b
+vmyController
+R4
+!i10b 1
+!s100 IXRDAL@j`R3h=QJ<[m>zY1
+IemUQ5ERMYB]3ii`lL4Q0@0
+R5
+R0
+w1691050033
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController.v
+L0 2
+R6
+r1
+!s85 0
+31
+R7
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController.v|
+!i113 0
+R8
+R2
+nmy@controller
+vmyController_TB
+R4
+!i10b 1
+!s100 eUM@R7Yk9^8?z6X^SOjfV2
+I?f<[h<dBbF>WKRB9Hg@`k1
+R5
+R0
+w1691050688
+8/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController_TB.v
+F/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController_TB.v
+L0 3
+R6
+r1
+!s85 0
+31
+R7
+!s107 /home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController_TB.v|
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/myController_TB.v|
+!i113 0
+R8
+R2
+nmy@controller_@t@b
+vtop
+!s110 1691587585
+!i10b 1
+!s100 a04`Rd^ZTUAZ:GmfkUH`Q3
+IPh^RYBmS?2bF^=Rk6b<TD2
+R5
+R0
+w1691587562
+R9
+R10
+L0 1
+R6
+r1
+!s85 0
+31
+!s108 1691587585.000000
+R11
+!s90 -reportprogress|300|-work|work|-vopt|-stats=none|/home/vhdlp3/Desktop/hdl_lab/HDL_Lab_UMC_65/implementation/umc_65_ll/src/top.v|
+!i113 0
+R8
+R2
